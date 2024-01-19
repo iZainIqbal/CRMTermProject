@@ -7,21 +7,21 @@ This CRM system is designed to manage customer relationships efficiently. You ca
 ## Screenshots
 
 Login page
-![Example screenshot](images/login.png)
+![Example screenshot](Screenshots/login.png)
 Landing page
-![Example screenshot](images/home.png)
+![Example screenshot](Screenshots/home.png)
 Users list
-![Example screenshot](images/users.png)
+![Example screenshot](Screenshots/users.png)
 Companies list with given filter
-![Example screenshot](images/companies.png)
+![Example screenshot](Screenshots/companies.png)
 Contacts list with surname filter
-![Example screenshot](images/contacts.png)
+![Example screenshot](Screenshots/contacts.png)
 Adding new note to the company
-![Example screenshot](images/Notes.png)
+![Example screenshot](Screenshots/Notes.png)
 Showing list of users with specific role
-![Example screenshot](images/roles.png)
+![Example screenshot](Screenshots/roles.png)
 Businesses list
-![Example screenshot](images/business.png)
+![Example screenshot](Screenshots/business.png)
 
 ## Instructions
 

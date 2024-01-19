@@ -5,7 +5,7 @@ This CRM system is designed to manage customer relationships efficiently. You ca
 
 ## Instructions
 0. **Project on Github**
-   - Github link [https://github.com/iZainIqbal/CRM-project.git]
+   - Github link [https://github.com/iZainIqbal/CRMTermProject]
 
 1. **Run/Debug the Application:**
    - Open the CRM system application in your preferred development environment.

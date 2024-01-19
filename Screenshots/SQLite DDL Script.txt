@@ -1,0 +1,117 @@
+--
+-- File generated with SQLiteStudio v3.4.4 on Sun Jan 14 16:41:26 2024
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: __EFMigrationsHistory
+DROP TABLE IF EXISTS __EFMigrationsHistory;
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+-- Table: Business
+DROP TABLE IF EXISTS Business;
+CREATE TABLE IF NOT EXISTS "Business" (
+	"Id"	INTEGER NOT NULL,
+	"Name"	TEXT NOT NULL,
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+INSERT INTO Business (Id, Name) VALUES (1, 'Manufacturing');
+INSERT INTO Business (Id, Name) VALUES (2, 'Farming');
+INSERT INTO Business (Id, Name) VALUES (3, 'Building');
+INSERT INTO Business (Id, Name) VALUES (4, 'Trade');
+INSERT INTO Business (Id, Name) VALUES (5, 'Science');
+INSERT INTO Business (Id, Name) VALUES (6, 'Culture');
+INSERT INTO Business (Id, Name) VALUES (7, 'Administration');
+INSERT INTO Business (Id, Name) VALUES (8, 'Transport');
+INSERT INTO Business (Id, Name) VALUES (9, 'Tourism');
+INSERT INTO Business (Id, Name) VALUES (10, 'Music');
+INSERT INTO Business (Id, Name) VALUES (11, 'Gaming');
+INSERT INTO Business (Id, Name) VALUES (12, 'Other');
+
+-- Table: Company
+DROP TABLE IF EXISTS Company;
+CREATE TABLE IF NOT EXISTS "Company" (
+	"Id"	INTEGER NOT NULL,
+	"Name"	TEXT NOT NULL,
+	"Nip"	TEXT NOT NULL UNIQUE,
+	"BusinessId"	INTEGER NOT NULL,
+	"Address"	TEXT NOT NULL,
+	"City"	TEXT NOT NULL,
+	"UserId"	INTEGER NOT NULL,
+	"CreationDate"	TEXT NOT NULL,
+	"IsDeleted"	INTEGER,
+	CONSTRAINT "FK_User" FOREIGN KEY("UserId") REFERENCES "User"("Id"),
+	CONSTRAINT "FK_Business" FOREIGN KEY("BusinessId") REFERENCES "Business"("Id"),
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+INSERT INTO Company (Id, Name, Nip, BusinessId, Address, City, UserId, CreationDate, IsDeleted) VALUES (1, 'Teck Sky', '1234567890', 1, 'Pakistan', 'Sarai Alamgir', 1, '2020-03-18 00:00:00', 0);
+
+-- Table: Contact
+DROP TABLE IF EXISTS Contact;
+CREATE TABLE IF NOT EXISTS "Contact" (
+	"Id"	INTEGER NOT NULL,
+	"Name"	TEXT NOT NULL,
+	"Surname"	TEXT NOT NULL,
+	"Phone"	TEXT NOT NULL,
+	"Email"	TEXT NOT NULL,
+	"Position"	TEXT NOT NULL,
+	"CompanyId"	INTEGER NOT NULL,
+	"UserId"	INTEGER NOT NULL,
+	"IsDeleted"	INTEGER,
+	CONSTRAINT "FK_Company" FOREIGN KEY("CompanyId") REFERENCES "Company"("Id"),
+	CONSTRAINT "FK_User" FOREIGN KEY("UserId") REFERENCES "User"("Id"),
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+INSERT INTO Contact (Id, Name, Surname, Phone, Email, Position, CompanyId, UserId, IsDeleted) VALUES (1, 'Umair', 'Ali', '03045933988', 'umair@gmail.com', 'owner', 1, 1, 0);
+
+-- Table: Note
+DROP TABLE IF EXISTS Note;
+CREATE TABLE IF NOT EXISTS "Note" (
+	"Id"	INTEGER NOT NULL,
+	"Content"	TEXT NOT NULL,
+	"CompanyId"	INTEGER NOT NULL,
+	"UserId"	INTEGER NOT NULL,
+	"IsDeleted"	INTEGER,
+	CONSTRAINT "FK_Company" FOREIGN KEY("CompanyId") REFERENCES "Company"("Id"),
+	CONSTRAINT "FK_User" FOREIGN KEY("UserId") REFERENCES "User"("Id"),
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+INSERT INTO Note (Id, Content, CompanyId, UserId, IsDeleted) VALUES (1, 'This is our new company.', 1, 1, 0);
+
+-- Table: Role
+DROP TABLE IF EXISTS Role;
+CREATE TABLE IF NOT EXISTS "Role" (
+	"Id"	INTEGER NOT NULL,
+	"Name"	TEXT NOT NULL,
+	CONSTRAINT "PK_Role" PRIMARY KEY("Id" AUTOINCREMENT)
+);
+INSERT INTO Role (Id, Name) VALUES (1, 'Admin');
+INSERT INTO Role (Id, Name) VALUES (2, 'Moderator');
+INSERT INTO Role (Id, Name) VALUES (3, 'User');
+
+-- Table: User
+DROP TABLE IF EXISTS User;
+CREATE TABLE IF NOT EXISTS "User" (
+	"Id"	INTEGER NOT NULL,
+	"Name"	TEXT NOT NULL,
+	"Surname"	TEXT NOT NULL,
+	"DateOfBirth"	TEXT NOT NULL,
+	"Login"	TEXT NOT NULL UNIQUE,
+	"Password"	TEXT NOT NULL,
+	"RoleId"	INTEGER NOT NULL,
+	"IsDeleted"	INTEGER,
+	CONSTRAINT "FK_User" FOREIGN KEY("RoleId") REFERENCES "Role"("Id"),
+	CONSTRAINT "PK_User" PRIMARY KEY("Id" AUTOINCREMENT)
+);
+INSERT INTO User (Id, Name, Surname, DateOfBirth, Login, Password, RoleId, IsDeleted) VALUES (1, 'Umair', 'Ali', '2003-03-18 00:00:00', 'umair', 'aafd4fb9adee64d2fce872647245e083', 1, 0);
+INSERT INTO User (Id, Name, Surname, DateOfBirth, Login, Password, RoleId, IsDeleted) VALUES (51, 'Ali', 'Hamza', '2001-06-05 00:00:00', 'alihamza', 'dcd145e4ec1aa3c8125a84c79a8b6b6c', 3, 1);
+INSERT INTO User (Id, Name, Surname, DateOfBirth, Login, Password, RoleId, IsDeleted) VALUES (52, 'Zain', 'Iqbal', '2003-03-11 00:00:00', 'zain', '3ed9b95e4b6f2c345836def81e570ef1', 2, 0);
+INSERT INTO User (Id, Name, Surname, DateOfBirth, Login, Password, RoleId, IsDeleted) VALUES (53, 'test', 'user', '2024-01-03 00:00:00', 'test', '098f6bcd4621d373cade4e832627b4f6', 3, 0);
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
